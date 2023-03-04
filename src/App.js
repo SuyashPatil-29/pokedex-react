@@ -1,25 +1,26 @@
-import logo from './logo.svg';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 
 function App() {
+  
+  const [pokemons, setPokemons] = useState([])
+  
+  useEffect(()=>{
+    fetch("https://pokeapi.co/api/v2/pokemon/")
+    .then(response=>response.json())
+    .then(json=>setPokemons(json.results))
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    {pokemons.map(pokemon=><h1>{pokemon.name}</h1>)}
     </div>
   );
 }
+
+
+
+
+
 
 export default App;
